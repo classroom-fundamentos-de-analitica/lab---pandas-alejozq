@@ -49,9 +49,9 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return tbl0.groupby(['_c1']).size().reset_index(name='count')
+    f=tbl0.groupby(['_c1']).size().reset_index(name='count')
+    return f
 
-print(pregunta_03())
 
 def pregunta_04():
     """
@@ -65,7 +65,7 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    return tbl0.groupby(['_c1'])['_c2'].mean().reset_index(name='mean')
 
 
 def pregunta_05():
@@ -82,7 +82,7 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    return tbl0.groupby(['_c1'])['_c2'].max().reset_index()
 
 
 def pregunta_06():
@@ -94,7 +94,8 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    f=tbl0['_c1'].sort_values()
+    return f.unique()
 
 
 def pregunta_07():
@@ -110,7 +111,7 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    return tbl0.groupby(['_c1'])['_c2'].sum().reset_index()
 
 
 def pregunta_08():
@@ -128,8 +129,8 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
-
+    tbl0['suma'] = tbl0['_c0'] + tbl0['_c2']
+    return tbl0
 
 def pregunta_09():
     """
@@ -146,7 +147,9 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    tbl0['_c3'] = pd.to_datetime(tbl0['_c3'])
+    tbl0['Year'] = tbl0['_c3'].dt.year 
+    return tbl0
 
 
 def pregunta_10():
@@ -217,4 +220,7 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    f=tbl2.groupby(['_c0'])['_c5b'].sum().reset_index()
+    tbl0['sum']=f['_c5b']
+    w=tbl0.groupby(['_c1'])['sum'].sum().reset_index()
+    return w
